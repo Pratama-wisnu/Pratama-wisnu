@@ -12,11 +12,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      # Langkah 1: Checkout (Wajib untuk repo baru)
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Langkah 2: Bikin Ular
       - name: Generate Snake
         uses: Platane/snk@v3
         with:
@@ -25,12 +23,14 @@ jobs:
             dist/github-contribution-grid-snake.svg
             dist/github-contribution-grid-snake-dark.svg?palette=github-dark
 
-      # Langkah 3: Upload (Dengan perintah create_branch)
       - name: Push to GitHub
         uses: crazy-max/gh-action-github-pages@v3.1.0
         with:
           target_branch: output
           build_dir: dist
-          create_branch: true  # <--- INI KUNCI SUKSESNYA
+          create_branch: true
+          # INI IDENTITAS ROBOTNYA (Biar gak ditolak)
+          user_name: github-actions[bot]
+          user_email: 41898282+github-actions[bot]@users.noreply.github.com
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
